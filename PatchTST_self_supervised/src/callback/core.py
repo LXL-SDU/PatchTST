@@ -25,7 +25,7 @@ Callback lists:
 
 """
 
-from ..basics import *
+from ...src.basics import *
 import torch
 
 DTYPE = torch.float32

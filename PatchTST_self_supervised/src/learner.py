@@ -5,12 +5,12 @@ from torch.optim import Adam
 from torch import nn
 from torch.nn.parallel import DistributedDataParallel
 
-from .basics import *
-from .callback.core import * 
-from .callback.tracking import * 
-from .callback.scheduler import *
-from .callback.distributed import *
-from .utils import *
+from basics import *
+from callback.core import *
+from callback.tracking import *
+from callback.scheduler import *
+from callback.distributed import *
+from utils import *
 from pathlib import Path
 from tqdm import tqdm
 
