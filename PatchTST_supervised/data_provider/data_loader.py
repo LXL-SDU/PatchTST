@@ -5,8 +5,9 @@ import os
 import torch
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
-from utils.timefeatures import time_features
 import warnings
+
+from PatchTST_supervised.utils.timefeatures import time_features
 
 warnings.filterwarnings('ignore')
 

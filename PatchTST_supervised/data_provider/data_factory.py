@@ -1,3 +1,5 @@
+import pandas as pd
+import os
 from data_provider.data_loader import Dataset_ETT_hour, Dataset_ETT_minute, Dataset_Custom, Dataset_Pred
 from torch.utils.data import DataLoader
 
@@ -42,6 +44,24 @@ def data_provider(args, flag):
         freq=freq
     )
     print(flag, len(data_set))
+    if hasattr(data_set, 'scaler'):
+        mean = data_set.scaler.mean_
+        var = data_set.scaler.var_
+        mean_df = pd.DataFrame(mean.reshape(1, -1))
+        var_df = pd.DataFrame(var.reshape(1, -1))
+        mean_path = os.path.join(args.root_path, f'{flag}_mean.csv')
+        var_path = os.path.join(args.root_path, f'{flag}_var.csv')
+        mean_df.to_csv(mean_path, index=False)
+        var_df.to_csv(var_path, index=False)
+        print(f"Mean saved to {mean_path}")
+        print(f"Variance saved to {var_path}")
+
+        # 保存标准化后的数据
+    if hasattr(data_set, 'data_x'):
+        scaled_data_df = pd.DataFrame(data_set.data_x)
+        scaled_data_path = os.path.join(args.root_path, f'{flag}_scaled_data.csv')
+        scaled_data_df.to_csv(scaled_data_path, index=False)
+        print(f"Scaled data saved to {scaled_data_path}")
     data_loader = DataLoader(
         data_set,
         batch_size=batch_size,
